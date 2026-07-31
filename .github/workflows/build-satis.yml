@@ -45,5 +45,5 @@ jobs:
           personal_token: ${{ secrets.SATIS_GITHUB_TOKEN }}
           publish_dir: ./web
           force_orphan: true
-          external_repository: SplitPayBrasil/satis-repo
+          external_repository: SplitPayBrasil/v2-shizuku
           publish_branch: gh-pages
