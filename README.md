@@ -1,2 +1,2 @@
 # v2-shizuku
-Satis Repository
+This is a Satis Repository
