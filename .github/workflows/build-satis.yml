@@ -3,8 +3,7 @@ name: Build Satis Repository
 on:
   workflow_dispatch:
   push:
-    tags:
-      - '*'
+    branches: ["main"]
 
 # Permissões necessárias para o GITHUB_TOKEN funcionar no deploy
 permissions:
