@@ -1,9 +1,9 @@
 name: Build Satis Repository
 
 on:
-  workflow_dispatch:
   push:
-    branches: ["main"]
+    branches: [ "main" ]
+  workflow_dispatch:
 
 # Permissões necessárias para o GITHUB_TOKEN funcionar no deploy
 permissions:
@@ -32,15 +32,16 @@ jobs:
         run: composer create-project composer/satis --stability=dev --keep-vcs
 
       - name: Build Satis
-        run: |
-          composer config -g github-oauth.github.com ${{ secrets.SATIS_GITHUB_TOKEN }}
-          php satis/bin/satis build satis.json web/
-        
+        run: php satis/bin/satis build satis.json web/
+        env:
+          # Usa o PAT personalizado para ler os repositórios privados
+          COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ secrets.SSH_PRIVATE_KEY }}"}}'
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          # Usamos o PAT (SATIS_GITHUB_TOKEN) para garantir permissão de escrita no deploy
-          personal_token: ${{ secrets.SATIS_GITHUB_TOKEN }}
+          # Usamos o PAT (SSH_PRIVATE_KEY) para garantir permissão de escrita no deploy
+          personal_token: ${{ secrets.SSH_PRIVATE_KEY }}
           publish_dir: ./web
           force_orphan: true
           external_repository: SplitPayBrasil/v2-shizuku
