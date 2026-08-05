@@ -43,8 +43,6 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          # Usamos o PAT (SSH_PRIVATE_KEY) para garantir permissão de escrita no deploy
-          personal_token: ${{ secrets.SSH_PRIVATE_KEY }}
           publish_dir: ./web
           force_orphan: true
           external_repository: SplitPayBrasil/v2-shizuku
