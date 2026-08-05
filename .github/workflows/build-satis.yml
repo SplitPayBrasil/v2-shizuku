@@ -31,12 +31,14 @@ jobs:
       - name: Install Satis
         run: composer create-project composer/satis --stability=dev --keep-vcs
 
+      - name: Configure SSH-key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
       - name: Build Satis
-        run: php satis/bin/satis build satis.json web/
-        env:
-          # Usa o PAT personalizado para ler os repositórios privados
-          COMPOSER_AUTH: |-
-            {"github-oauth": {"github.com": "${{ secrets.SSH_PRIVATE_KEY }}"}}
+        run: |
+          php satis/bin/satis build satis.json web/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
