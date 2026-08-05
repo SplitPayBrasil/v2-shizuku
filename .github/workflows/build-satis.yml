@@ -35,7 +35,7 @@ jobs:
         run: php satis/bin/satis build satis.json web/
         env:
           # Usa o PAT personalizado para ler os repositórios privados
-          COMPOSER_AUTH: | 
+          COMPOSER_AUTH: |
             {"github-oauth": {"github.com": "${{ secrets.SATIS_GITHUB_TOKEN }}"}}
 
       - name: Deploy to GitHub Pages
