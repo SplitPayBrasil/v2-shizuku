@@ -37,13 +37,13 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Build Satis
-        run: |
-          php satis/bin/satis build satis.json web/
+        run: php satis/bin/satis build satis.json web/
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Package the generated files
+        uses: actions/upload-pages-artifact@v3
         with:
-          publish_dir: ./web
-          force_orphan: true
-          external_repository: SplitPayBrasil/v2-shizuku
-          publish_branch: gh-pages
+          path: './web' # Pasta onde o Satis colocou os arquivos
+
+      - name: Publish to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
