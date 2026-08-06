@@ -2,7 +2,8 @@
     "name": "splitpay/private-packages",
     "homepage": "https://splitpaybrasil.github.io/v2-shizuku",
     "repositories": [
-        { "type": "vcs", "url": "git@github.com:SplitPayBrasil/v2-casca" }
+        { "type": "vcs", "url": "git@github.com:SplitPayBrasil/v2-casca" },
+        { "type": "vcs", "url": "git@github.com:SplitPayBrasil/v2-brook" }
     ],
     "require-all": true,
     "config": {
