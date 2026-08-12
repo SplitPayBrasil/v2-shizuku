@@ -31,12 +31,19 @@ jobs:
       - name: Install Satis
         run: composer create-project composer/satis --stability=dev --keep-vcs
           
-      - name: Configure SSH-key
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: |
-            ${{ secrets.SSH_PRIVATE_KEY }}
-            ${{ secrets.SSH_PRIVATE_KEY_BROOK }}
+      - name: Configure SSH Aliases
+        run: |
+          cat <<EOF >> ~/.ssh/config
+          Host v2-casca
+            HostName github.com
+            User git
+            IdentityFile ~/.ssh/id_rsa
+
+          Host v2-brook
+            HostName github.com
+            User git
+            IdentityFile ~/.ssh/id_rsa_2
+          EOF
 
       - name: Allow SSH to try all keys
         run: |
