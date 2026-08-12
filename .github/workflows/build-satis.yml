@@ -30,11 +30,6 @@ jobs:
 
       - name: Install Satis
         run: composer create-project composer/satis --stability=dev --keep-vcs
-
-      - name: Allow SSH to try all keys
-        run: |
-          mkdir -p ~/.ssh
-          echo "IdentitiesOnly no" >> ~/.ssh/config
           
       - name: Configure SSH-key
         uses: webfactory/ssh-agent@v0.9.0
@@ -42,6 +37,14 @@ jobs:
           ssh-private-key: |
             ${{ secrets.SSH_PRIVATE_KEY }}
             ${{ secrets.SSH_PRIVATE_KEY_BROOK }}
+
+      - name: Allow SSH to try all keys
+        run: |
+          cat <<EOF >> ~/.ssh/config
+          Host github.com
+            IdentityFile ~/.ssh/id_rsa
+            IdentitiesOnly no
+          EOF
 
       - name: Build Satis
         run: php satis/bin/satis build satis.json web/
