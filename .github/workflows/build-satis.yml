@@ -52,14 +52,6 @@ jobs:
             IdentityFile ~/.ssh/id_rsa_2
           EOF
 
-      - name: Allow SSH to try all keys
-        run: |
-          cat <<EOF >> ~/.ssh/config
-          Host github.com
-            IdentityFile ~/.ssh/id_rsa
-            IdentitiesOnly no
-          EOF
-
       - name: Build Satis
         run: php satis/bin/satis build satis.json web/
 
